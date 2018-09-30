@@ -1,0 +1,13 @@
+
+```{r, include=FALSE}
+library(gior)
+library(dplyr)
+```
+
+```{r}
+data <- jsonlite::fromJSON("https://raw.githubusercontent.com/syt123450/giojs/master/examples/data/sampleData.json")
+
+data %>% 
+  gior() %>% 
+  g_data(e, i, v)
+```

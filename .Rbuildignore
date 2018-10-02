@@ -7,3 +7,4 @@ index.Rmd
 docs
 _pkgdown.yml
 ^data-raw$
+test.R

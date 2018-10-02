@@ -12,7 +12,7 @@ g_data_p(proxy, data, from, to, value, ...)
 \arguments{
 \item{proxy}{A proxy as returned by \code{\link{giorProxy}}.}
 
-\item{data}{A \code{data.frame} or \code{crosstalk} object.}
+\item{data}{A \code{data.frame}.}
 
 \item{from}{Source and target of edges.}
 

@@ -17,9 +17,20 @@ HTMLWidgets.widget({
         controller = new GIO.Controller( container );
 
         controller.addData( x.data );
-        controller.setInitCountry( x.initCountry );
+        if(x.hasOwnProperty('initCountry')){
+          controller.setInitCountry( x.initCountry );
+        }
         controller.configure(x.configs);
         controller.init();
+
+        function share ( selectedCountry, relatedCountries ) {
+          Shiny.setInputValue(el.id + '_selected' + ":giorParseJS", selectedCountry);
+          Shiny.setInputValue(el.id + '_related' + ":giorParseJS", relatedCountries);
+        }
+
+        if (HTMLWidgets.shinyMode) {
+          controller.onCountryPicked( share );
+        }
 
       },
 

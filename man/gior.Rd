@@ -8,7 +8,7 @@ gior(data = NULL, init.country = "US", width = "100\%",
   height = NULL, elementId = NULL)
 }
 \arguments{
-\item{data}{A \code{data.frame} or \code{crosstalk} object.}
+\item{data}{A \code{data.frame}.}
 
 \item{init.country}{An ISO code of the country displayed at the center of the screen when the globe has been initialized.}
 
@@ -25,7 +25,7 @@ Initialise globe
 data("country_data")
 
 country_data \%>\%
-  gior() \%>\%
+  gior(init.country = "CN") \%>\%
   g_data(from, to, value)
 
 }

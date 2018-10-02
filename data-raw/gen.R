@@ -2,4 +2,22 @@ country_data <- jsonlite::fromJSON("https://raw.githubusercontent.com/syt123450/
 
 names(country_data) <- c("from", "to", "value")
 
-devtools::use_data(country_data, overwrite = TRUE)
+continents <- c(
+  "Oceania",
+  "North America",
+  "South America",
+  "Europe",
+  "Asia",
+  "Africa"
+)
+
+continent_data <- dplyr::tibble(
+  from = sample(continents, 25, replace = TRUE),
+  to = sample(continents, 25, replace = TRUE),
+  value = runif(25)
+)
+
+continent_data <- continent_data %>%
+  filter(from != to)
+
+devtools::use_data(country_data,  continent_data, overwrite = TRUE)

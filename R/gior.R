@@ -4,7 +4,7 @@
 #'
 #' @import htmlwidgets
 #'
-#' @param data A \code{data.frame} or \code{crosstalk} object.
+#' @param data A \code{data.frame}.
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
@@ -15,31 +15,18 @@
 #' data("country_data")
 #'
 #' country_data %>%
-#'   gior() %>%
+#'   gior(init.country = "CN") %>%
 #'   g_data(from, to, value)
 #'
 #' @export
 gior <- function(data = NULL, init.country = "US", width = "100%", height = NULL, elementId = NULL) {
-
-  if (crosstalk::is.SharedData(data)) {
-    key <- data$key()
-    group <- data$groupName()
-    data <- data$origData()
-  } else {
-    key <- NULL
-    group <- NULL
-  }
 
   row.names(data) <- NULL
 
   x = list(
     data = data,
     initCountry = init.country,
-    configs = list(),
-    settings = list(
-      crosstalk_key = key,
-      crosstalk_group = group
-    )
+    configs = list()
   )
 
   # create widget
@@ -55,8 +42,7 @@ gior <- function(data = NULL, init.country = "US", width = "100%", height = NULL
       browser.fill = TRUE,
       viewer.suppress = TRUE,
       browser.external = TRUE
-    ),
-    dependencies = crosstalk::crosstalkLibs()
+    )
   )
 }
 

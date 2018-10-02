@@ -2,10 +2,27 @@
 % Please edit documentation in R/graph.R
 \name{g_data}
 \alias{g_data}
-\title{Initial Country}
+\title{Process data}
 \usage{
 g_data(g, from, to, value, ...)
 }
+\arguments{
+\item{g}{An object of class \code{gior} as returned by \code{\link{gior}}.}
+
+\item{from, to}{Source and target of edges.}
+
+\item{value}{Numerical value of edges.}
+
+\item{...}{Any other columns to select from the data, i.e.: \code{inColor} or \code{outColor}}
+}
 \description{
-Set initially selected country
+Process data previously passed to \code{\link{gior}}.
+}
+\examples{
+data("country_data")
+
+country_data \%>\%
+  gior(init.country = "CN") \%>\%
+  g_data(from, to, value)
+
 }

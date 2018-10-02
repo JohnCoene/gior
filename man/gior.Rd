@@ -4,8 +4,19 @@
 \alias{gior}
 \title{Initialise}
 \usage{
-gior(data = NULL, initCountry = "US", width = "100\%",
+gior(data = NULL, init.country = "US", width = "100\%",
   height = NULL, elementId = NULL)
+}
+\arguments{
+\item{data}{A \code{data.frame} or \code{crosstalk} object.}
+
+\item{init.country}{An ISO code of the country displayed at the center of the screen when the globe has been initialized.}
+
+\item{width, height}{Must be a valid CSS unit (like \code{'100\%'},
+\code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+string and have \code{'px'} appended.}
+
+\item{elementId}{Id of element, auto-generated if \code{NULL}.}
 }
 \description{
 Initialise globe

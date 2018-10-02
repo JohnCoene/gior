@@ -1,15 +1,16 @@
 Package: gior
 Title: A Declarative 3D Globe Data Visualization Library built with 'Three.js'
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person("John", "Coene", email = "jcoenep@gmail.com", role = c("aut", "cre"))
 Description: A declarative 3d globe data visualization.
-Depends: R (>= 3.4.4)
+Depends: R (>= 3.4.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
     htmlwidgets,
     dplyr,
-    magrittr
+    magrittr,
+    crosstalk
 Suggests: shiny
 RoxygenNote: 6.1.0

@@ -1,52 +1,12 @@
-#' Clear
-#'
-#' Clear all data
-#'
-#' @examples
-#' if(interactive()){
-#'
-#'   library(shiny)
-#'
-#'   data("country_data")
-#'
-#'   ui <- fluidPage(
-#'     actionButton("clear", "clear"),
-#'     giorOutput("gior")
-#'   )
-#'
-#'   server <- function(input, output, session){
-#'     output$gior <- renderGior({
-#'       country_data %>%
-#'         gior() %>%
-#'         g_data(from, to, value)
-#'     })
-#'
-#'     observeEvent(input$clear, {
-#'       giorProxy("gior") %>%
-#'         g_clear_p()
-#'     })
-#'   }
-#'
-#'   shinyApp(ui, server)
-#'
-#' }
-#'
-#' @export
-g_clear_p <- function(proxy){
+globalVariables(c("."))
 
-  if (!"giorProxy" %in% class(proxy))
-    stop("must pass giorProxy object", call. = FALSE)
-
-  data <- list(id = proxy$id)
-
-  proxy$session$sendCustomMessage("g_clear_p", data)
-
-  return(proxy)
-}
-
-#' Add data
+#' Add & Clear
 #'
-#' Add data to visualisation.
+#' Add and clear data in Shiny.
+#'
+#' @inheritParams gior
+#' @inheritParams g_data
+#' @param proxy A proxy as returned by \code{\link{giorProxy}}.
 #'
 #' @examples
 #' if(interactive()){
@@ -83,17 +43,35 @@ g_clear_p <- function(proxy){
 #'
 #' }
 #'
+#' @rdname add
+#' @export
+g_clear_p <- function(proxy){
+
+  if (!"giorProxy" %in% class(proxy))
+    stop("must pass giorProxy object", call. = FALSE)
+
+  data <- list(id = proxy$id)
+
+  proxy$session$sendCustomMessage("g_clear_p", data)
+
+  return(proxy)
+}
+
+#' @rdname add
 #' @export
 g_data_p <- function(proxy, data, from, to, value, ...){
 
   if (!"giorProxy" %in% class(proxy))
     stop("must pass giorProxy object", call. = FALSE)
 
+  if(missing(data) || missing(from) || missing(to) || missing(value))
+    stop("missing data, from, to, or value", call. = FALSE)
+
   e <- dplyr::enquo(from)
   i <- dplyr::enquo(to)
   v <- dplyr::enquo(value)
 
-  json <- g$x$data %>%
+  json <- data %>%
     dplyr::select(
       e = !!e,
       i = !!i,
@@ -112,6 +90,8 @@ g_data_p <- function(proxy, data, from, to, value, ...){
 #' Initialise
 #'
 #' (Re)- initialise the globe.
+#'
+#' @inheritParams g_clear_p
 #'
 #' @export
 g_init_p <- function(proxy){

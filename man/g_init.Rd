@@ -9,8 +9,17 @@ g_init(g, country)
 \arguments{
 \item{g}{An object of class \code{gior} as returned by \code{\link{gior}}.}
 
-\item{country}{ISO code 2 of country to have initially selected.}
+\item{country}{An ISO code of the country displayed at the center of the screen when the globe has been initialized.}
 }
 \description{
 Set initially selected country
+}
+\examples{
+data("country_data")
+
+country_data \%>\%
+  gior() \%>\%
+  g_data(from, to, value) \%>\%
+  g_init("RU")
+
 }

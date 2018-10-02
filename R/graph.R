@@ -1,6 +1,18 @@
-#' Initial Country
+#' Process data
 #'
-#' Set initially selected country
+#' Process data previously passed to \code{\link{gior}}.
+#'
+#' @param g An object of class \code{gior} as returned by \code{\link{gior}}.
+#' @param from,to Source and target of edges.
+#' @param value Numerical value of edges.
+#' @param ... Any other columns to select from the data, i.e.: \code{inColor} or \code{outColor}
+#'
+#' @examples
+#' data("country_data")
+#'
+#' country_data %>%
+#'   gior(init.country = "CN") %>%
+#'   g_data(from, to, value)
 #'
 #' @export
 g_data <- function(g, from, to, value, ...){

@@ -4,6 +4,13 @@
 #'
 #' @import htmlwidgets
 #'
+#' @param data A \code{data.frame} or \code{crosstalk} object.
+#' @param width,height Must be a valid CSS unit (like \code{'100\%'},
+#'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+#'   string and have \code{'px'} appended.
+#' @param elementId Id of element, auto-generated if \code{NULL}.
+#' @param init.country An ISO code of the country displayed at the center of the screen when the globe has been initialized.
+#'
 #' @examples
 #' data("country_data")
 #'
@@ -12,14 +19,27 @@
 #'   g_data(from, to, value)
 #'
 #' @export
-gior <- function(data = NULL, initCountry = "US", width = "100%", height = NULL, elementId = NULL) {
+gior <- function(data = NULL, init.country = "US", width = "100%", height = NULL, elementId = NULL) {
+
+  if (crosstalk::is.SharedData(data)) {
+    key <- data$key()
+    group <- data$groupName()
+    data <- data$origData()
+  } else {
+    key <- NULL
+    group <- NULL
+  }
 
   row.names(data) <- NULL
 
   x = list(
     data = data,
-    initCountry = initCountry,
-    configs = list()
+    initCountry = init.country,
+    configs = list(),
+    settings = list(
+      crosstalk_key = key,
+      crosstalk_group = group
+    )
   )
 
   # create widget
@@ -35,7 +55,8 @@ gior <- function(data = NULL, initCountry = "US", width = "100%", height = NULL,
       browser.fill = TRUE,
       viewer.suppress = TRUE,
       browser.external = TRUE
-    )
+    ),
+    dependencies = crosstalk::crosstalkLibs()
   )
 }
 
@@ -52,6 +73,7 @@ gior <- function(data = NULL, initCountry = "US", width = "100%", height = NULL,
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
+#' @param session A Shiny session.
 #'
 #' @name gior-shiny
 #'

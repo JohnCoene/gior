@@ -10,8 +10,8 @@ g_control(g, disable.unmentioned = FALSE, lighten.mentioned = FALSE,
   in.only = FALSE, out.only = FALSE, init.country = "US",
   halo = TRUE)
 
-g_color(g, surface = "0xFFFFFF", selected = NULL, inn = NULL,
-  out = NULL, halo = NULL, background = NULL)
+g_color(g, surface = NULL, selected = NULL, inn = NULL, out = NULL,
+  halo = NULL, background = NULL)
 
 g_brightness(g, ocean = 0.5, mentioned = 0.5, related = 0.5)
 }

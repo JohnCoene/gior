@@ -16,8 +16,8 @@
 #' @export
 g_init <- function(g, country){
 
-  if(missing(country))
-    stop("missing country", call. = FALSE)
+  if(missing(country) || missing(g))
+    stop("missing g, or country", call. = FALSE)
 
   g$x$initCountry <- country
 
@@ -45,6 +45,9 @@ g_init <- function(g, country){
 g_control <- function(g, disable.unmentioned = FALSE, lighten.mentioned = FALSE, in.only = FALSE,
                       out.only = FALSE, init.country = "US", halo = TRUE){
 
+  if(missing(g))
+    stop("missing g", call. = FALSE)
+
   g$x$configs$control <- list(
     disableUnmentioned = disable.unmentioned,
     lighteMentioned = lighten.mentioned,
@@ -60,8 +63,11 @@ g_control <- function(g, disable.unmentioned = FALSE, lighten.mentioned = FALSE,
 
 #' @rdname config
 #' @export
-g_color <- function(g, surface = "0xFFFFFF", selected = NULL, inn = NULL, out = NULL,
+g_color <- function(g, surface = NULL, selected = NULL, inn = NULL, out = NULL,
                     halo = NULL, background = NULL){
+
+  if(missing(g))
+    stop("missing g", call. = FALSE)
 
   g$x$configs$color <- list(
     surface = surface,
@@ -77,13 +83,63 @@ g_color <- function(g, surface = "0xFFFFFF", selected = NULL, inn = NULL, out = 
 
 #' @rdname config
 #' @export
-g_brightness<- function(g, ocean = .5, mentioned = .5, related = .5){
+g_brightness <- function(g, ocean = .5, mentioned = .5, related = .5){
+
+  if(missing(g))
+    stop("missing g", call. = FALSE)
 
   g$x$configs$brightness <- list(
     ocean = ocean,
     mentioned = mentioned,
     related = related
   )
+
+  g
+
+}
+
+
+#' Style
+#'
+#' Set globe style.
+#'
+#' @param style Style, see details.
+#'
+#' @details Valid \code{style} include:
+#'
+#' \itemize{
+#'   \item{\code{blueInk}}
+#'   \item{\code{earlySpring}}
+#'   \item{\code{frozenBerry}}
+#'   \item{\code{gorgeousDream}}
+#'   \item{\code{juicyCake}}
+#'   \item{\code{lemonGate}}
+#'   \item{\code{magic}}
+#'   \item{\code{mint}}
+#'   \item{\code{nearMoon}}
+#'   \item{\code{octoberParty}}
+#'   \item{\code{redBlue}}
+#'   \item{\code{strawberry}}
+#'   \item{\code{sunset}}
+#' }
+#'
+#' @examples
+#' data("country_data")
+#'
+#' globe <- country_data %>%
+#'   gior(init.country = "CN") %>%
+#'   g_data(from, to, value)
+#'
+#' g_style(globe, "strawberry")
+#' g_style(globe, "magic")
+#'
+#' @export
+g_style <- function(g, style){
+
+  if(missing(style) || missing(g))
+    stop("missing g, or style", call. = FALSE)
+
+  g$x$style <- style
 
   g
 

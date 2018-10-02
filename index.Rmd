@@ -2,22 +2,12 @@
 ```{r, include=FALSE}
 library(gior)
 library(dplyr)
-library(crosstalk)
 ```
 
-```{r}
+```{r, echo=FALSE}
 data("country_data")
 
-sd <- country_data %>% 
-  dplyr::group_by(from) %>% 
-  dplyr::summarise(value = sum(value))
-
-sd <- SharedData$new(sd, key = sd$from)
-
-# Use SharedData like a dataframe with Crosstalk-enabled widgets
-bscols(
-  country_data %>% gior(sd = sd) %>% g_data(from, to, value),
-  DT::datatable(sd, extensions="Scroller", style="bootstrap", class="compact", width="100%",
-    options=list(deferRender=TRUE, scrollY=300, scroller=TRUE), selection = "single")
-)
+country_data %>%
+  gior() %>%
+  g_data(from, to, value)
 ```

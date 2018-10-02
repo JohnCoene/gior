@@ -112,24 +112,24 @@
 <span class="kw">library</span>(gior)
 <span class="kw">library</span>(shiny)
 
-ui &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidPage</a></span>(
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidRow</a></span>(
-    <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/column">column</a></span>(
+ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+  <span class="kw">fluidRow</span>(
+    <span class="kw">column</span>(
       <span class="dv">10</span>,
-      <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/builder">h3</a></span>(<span class="st">"Map"</span>),
+      <span class="kw">h3</span>(<span class="st">"Map"</span>),
       <span class="kw"><a href="../reference/gior-shiny.html">giorOutput</a></span>(<span class="st">"gior"</span>)
     ),
-    <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/column">column</a></span>(
+    <span class="kw">column</span>(
       <span class="dv">2</span>,
-      <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/builder">h3</a></span>(<span class="st">"Selected"</span>),
-      <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/verbatimTextOutput">verbatimTextOutput</a></span>(<span class="st">"sel"</span>)
+      <span class="kw">h3</span>(<span class="st">"Selected"</span>),
+      <span class="kw">verbatimTextOutput</span>(<span class="st">"sel"</span>)
     )
   ),
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidRow</a></span>(
-    <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/column">column</a></span>(
+  <span class="kw">fluidRow</span>(
+    <span class="kw">column</span>(
       <span class="dv">12</span>,
-      <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/builder">h3</a></span>(<span class="st">"Related countries"</span>),
-      <span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/dataTableOutput">DTOutput</a></span>(<span class="st">"rel"</span>)
+      <span class="kw">h3</span>(<span class="st">"Related countries"</span>),
+      <span class="kw">DTOutput</span>(<span class="st">"rel"</span>)
     )
   )
 )
@@ -139,25 +139,55 @@ server &lt;-<span class="st"> </span><span class="cf">function</span>(input, out
 
   output<span class="op">$</span>gior &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gior-shiny.html">renderGior</a></span>({
     country_data <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/gior.html">gior</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/g_data.html">g_data</a></span>(from, to, value)
+<span class="st">      </span><span class="kw"><a href="../reference/gior.html">gior</a></span>() <span class="op">%&gt;%</span>§
+      <span class="kw"><a href="../reference/g_data.html">g_data</a></span>(from, to, value)
   })
 
-  output<span class="op">$</span>sel &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/renderPrint">renderPrint</a></span>({
+  output<span class="op">$</span>sel &lt;-<span class="st"> </span><span class="kw">renderPrint</span>({
     input<span class="op">$</span>gior_selected
   })
 
-  output<span class="op">$</span>rel &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/dataTableOutput">renderDT</a></span>({
+  output<span class="op">$</span>rel &lt;-<span class="st"> </span><span class="kw">renderDT</span>({
     DT<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(input<span class="op">$</span>gior_related)
   })
 }
 
-<span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/shinyApp">shinyApp</a></span>(ui, server)</code></pre></div>
+<span class="kw">shinyApp</span>(ui, server)</code></pre></div>
 </div>
 <div id="proxies" class="section level2">
 <h2 class="hasAnchor">
 <a href="#proxies" class="anchor"></a>Proxies</h2>
 <p><code>gior</code> comes with numerous proxies. Shiny proxies let you interact with a visualisation without having to redraw it everytime you do so.</p>
+<p>For examples, you can change the dataset on the fly without having to redraw the entire globe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
+
+<span class="kw">data</span>(<span class="st">"country_data"</span>)
+
+ui &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidPage</a></span>(
+  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/actionButton">actionButton</a></span>(<span class="st">"add"</span>, <span class="st">"add"</span>),
+  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/actionButton">actionButton</a></span>(<span class="st">"clear"</span>, <span class="st">"clear"</span>),
+  <span class="kw"><a href="../reference/gior-shiny.html">giorOutput</a></span>(<span class="st">"gior"</span>)
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session){
+  output<span class="op">$</span>gior &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gior-shiny.html">renderGior</a></span>({
+    data <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/gior.html">gior</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/g_data.html">g_data</a></span>(from, to, value)
+  })
+
+  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/observeEvent">observeEvent</a></span>(input<span class="op">$</span>clear, {
+    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add.html">g_clear_p</a></span>()
+  })
+
+  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/observeEvent">observeEvent</a></span>(input<span class="op">$</span>add, {
+    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add.html">g_data_p</a></span>(country_data, from, to, value)
+  })
+}
+
+<span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/shinyApp">shinyApp</a></span>(ui, server)</code></pre></div>
 </div>
   </div>
 

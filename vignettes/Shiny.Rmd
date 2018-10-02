@@ -60,7 +60,7 @@ server <- function(input, output, session) {
 
   output$gior <- renderGior({
     country_data %>%
-      gior() %>%
+      gior() %>%§
       g_data(from, to, value)
   })
 
@@ -79,3 +79,37 @@ shinyApp(ui, server)
 ## Proxies
 
 `gior` comes with numerous proxies. Shiny proxies let you interact with a visualisation without having to redraw it everytime you do so.
+
+For examples, you can change the dataset on the fly without having to redraw the entire globe.
+
+```r
+library(shiny)
+
+data("country_data")
+
+ui <- fluidPage(
+  actionButton("add", "add"),
+  actionButton("clear", "clear"),
+  giorOutput("gior")
+)
+
+server <- function(input, output, session){
+  output$gior <- renderGior({
+    data %>%
+      gior() %>%
+      g_data(from, to, value)
+  })
+
+  observeEvent(input$clear, {
+    giorProxy("gior") %>%
+      g_clear_p()
+  })
+
+  observeEvent(input$add, {
+    giorProxy("gior") %>%
+      g_data_p(country_data, from, to, value)
+  })
+}
+
+shinyApp(ui, server)
+```

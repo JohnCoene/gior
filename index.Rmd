@@ -26,9 +26,7 @@ remotes::install_github("JohnCoene/gior")
 
 ## Example
 
-Example of `gior` and two of its proxies.
-
-```{r, echo=FALSE}
+```{r, echo=TRUE}
 data("country_data")
 
 country_data %>%
@@ -36,7 +34,7 @@ country_data %>%
   g_data(from, to, value)
 ```
 
-## Notes
+### Notes
 
 `gior` supports continents:
 

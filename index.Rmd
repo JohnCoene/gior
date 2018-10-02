@@ -4,6 +4,30 @@ library(gior)
 library(dplyr)
 ```
 
+## gior
+
+An R [htmlwidget](https://www.htmlwidgets.org/) for [gio.js](http://giojs.org/).
+
+> A Declarative 3D Globe Data Visualization Library built with Three.js
+
+## Installation
+
+You can install `gior` with `devtools`
+
+```r
+devtools::install_github("JohnCoene/gior")
+```
+
+or `remotes`
+
+```r
+remotes::install_github("JohnCoene/gior")
+```
+
+## Example
+
+Example of `gior` and two of its proxies.
+
 ```{r, echo=FALSE}
 data("country_data")
 
@@ -11,3 +35,14 @@ country_data %>%
   gior() %>%
   g_data(from, to, value)
 ```
+
+## Notes
+
+`gior` supports continents:
+
+- Oceania
+- North America
+- South America
+- Europe
+- Asia
+- Africa

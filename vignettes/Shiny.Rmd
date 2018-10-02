@@ -1,0 +1,81 @@
+---
+title: "Shiny"
+author: "John Coene"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Shiny}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(gior)
+```
+
+
+## Selection & Related
+
+`gior` lets you catch which country is *selected* and which is *related* to the latter very easily. Just use the `id` of your `gior` visualisation with followed by:
+
+- `_selected` to get data **related** to the selected country.
+- `_related` to get data **related** to the selected country.
+
+Run the example below to see both of the above demonstrated.
+
+```r
+library(DT)
+library(gior)
+library(shiny)
+
+ui <- fluidPage(
+  fluidRow(
+    column(
+      10,
+      h3("Map"),
+      giorOutput("gior")
+    ),
+    column(
+      2,
+      h3("Selected"),
+      verbatimTextOutput("sel")
+    )
+  ),
+  fluidRow(
+    column(
+      12,
+      h3("Related countries"),
+      DTOutput("rel")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  data("country_data")
+
+  output$gior <- renderGior({
+    country_data %>%
+      gior() %>%
+      g_data(from, to, value)
+  })
+
+  output$sel <- renderPrint({
+    input$gior_selected
+  })
+
+  output$rel <- renderDT({
+    DT::datatable(input$gior_related)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Proxies
+
+`gior` comes with numerous proxies. Shiny proxies let you interact with a visualisation without having to redraw it everytime you do so.

@@ -7,10 +7,15 @@ Depends: R (>= 3.4.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: 
+Imports:
     htmlwidgets,
     dplyr,
     magrittr,
     shiny,
     jsonlite
 RoxygenNote: 6.1.0
+URL: http://gior.john-coene.com/
+BugReports: https://github.com/JohnCoene/gior/issues
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

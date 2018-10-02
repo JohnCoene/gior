@@ -16,12 +16,6 @@
     <loc>http://gior.john-coene.com/reference/country_data.html</loc>
   </url>
   <url>
-    <loc>http://gior.john-coene.com/reference/gior-shiny.html</loc>
-  </url>
-  <url>
-    <loc>http://gior.john-coene.com/reference/gior.html</loc>
-  </url>
-  <url>
     <loc>http://gior.john-coene.com/reference/g_data.html</loc>
   </url>
   <url>
@@ -34,6 +28,15 @@
     <loc>http://gior.john-coene.com/reference/g_style.html</loc>
   </url>
   <url>
+    <loc>http://gior.john-coene.com/reference/gior-shiny.html</loc>
+  </url>
+  <url>
+    <loc>http://gior.john-coene.com/reference/gior.html</loc>
+  </url>
+  <url>
     <loc>http://gior.john-coene.com/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>http://gior.john-coene.com/articles/Shiny.html</loc>
   </url>
 </urlset>

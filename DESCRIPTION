@@ -16,6 +16,8 @@ Imports:
 RoxygenNote: 6.1.0
 URL: http://gior.john-coene.com/
 BugReports: https://github.com/JohnCoene/gior/issues
-Suggests: knitr,
-    rmarkdown
+Suggests: 
+    knitr,
+    rmarkdown,
+    htmltools
 VignetteBuilder: knitr

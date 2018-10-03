@@ -2,11 +2,38 @@
 ```{r, include=FALSE}
 library(gior)
 library(dplyr)
+library(htmltools)
+
+data("country_data")
+
+globe <- country_data %>%
+  gior() %>%
+  g_data(from, to, value) %>% 
+  g_style("gorgeousDream")
 ```
 
-## gior
+```{r, echo=FALSE}
+h1(code("gior"), class = "text-center")
 
-An R [htmlwidget](https://www.htmlwidgets.org/) for [gio.js](http://giojs.org/).
+div(
+  class = "row",
+  div(
+    class = "col-md-4",
+    p(
+      "An htmlwidget for",
+      tags$a(
+        "gio.js",
+        href = "http://giojs.org/",
+        target = "_blank"
+      )
+    )
+  ),
+  div(
+    class = "col-md-8",
+    globe
+  )
+)
+```
 
 > A Declarative 3D Globe Data Visualization Library built with Three.js
 

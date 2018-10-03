@@ -90,12 +90,23 @@ data("country_data")
 ui <- fluidPage(
   actionButton("add", "add"),
   actionButton("clear", "clear"),
+  uiOutput("sw"),
   giorOutput("gior")
 )
 
 server <- function(input, output, session){
+
+  output$sw <- renderUI({
+    selectInput("selectCountry", "Switch Country", choices = unique(country_data$from))
+  })
+  
+  observeEvent(input$selectCountry, {
+    giorProxy("gior") %>%
+      g_switch_p(input$selectCountry)
+  })
+
   output$gior <- renderGior({
-    data %>%
+    country_data %>%
       gior() %>%
       g_data(from, to, value)
   })

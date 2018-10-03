@@ -93,4 +93,12 @@ if (HTMLWidgets.shinyMode) {
       }
   });
 
+  Shiny.addCustomMessageHandler('g_switch_p',
+    function(data) {
+      var globe = get_gior(data.id);
+      if (typeof globe != 'undefined') {
+        globe.switchCountry(data.country);
+      }
+  });
+
 }

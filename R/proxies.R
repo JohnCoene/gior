@@ -105,3 +105,27 @@ g_init_p <- function(proxy){
 
   return(proxy)
 }
+
+
+#' Switch
+#'
+#' Switch country.
+#'
+#' @inheritParams g_clear_p
+#' @param country Country to zoom onto.
+#'
+#' @export
+g_switch_p <- function(proxy, country){
+
+  if (!"giorProxy" %in% class(proxy))
+    stop("must pass giorProxy object", call. = FALSE)
+
+  if(missing(country))
+    stop("missing country", call. = FALSE)
+
+  data <- list(id = proxy$id, country = country)
+
+  proxy$session$sendCustomMessage("g_switch_p", data)
+
+  return(proxy)
+}

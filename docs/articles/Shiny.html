@@ -178,28 +178,39 @@
 <a class="sourceLine" id="cb2-5" data-line-number="5">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="kw">actionButton</span>(<span class="st">"add"</span>, <span class="st">"add"</span>),</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="kw">actionButton</span>(<span class="st">"clear"</span>, <span class="st">"clear"</span>),</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="kw"><a href="../reference/gior-shiny.html">giorOutput</a></span>(<span class="st">"gior"</span>)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session){</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">  output<span class="op">$</span>gior &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gior-shiny.html">renderGior</a></span>({</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">    data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">      </span><span class="kw"><a href="../reference/gior.html">gior</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">      </span><span class="kw"><a href="../reference/g_data.html">g_data</a></span>(from, to, value)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="kw">uiOutput</span>(<span class="st">"sw"</span>),</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">  <span class="kw"><a href="../reference/gior-shiny.html">giorOutput</a></span>(<span class="st">"gior"</span>)</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">)</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session){</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">  output<span class="op">$</span>sw &lt;-<span class="st"> </span><span class="kw">renderUI</span>({</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    <span class="kw">selectInput</span>(<span class="st">"selectCountry"</span>, <span class="st">"Switch Country"</span>, <span class="dt">choices =</span> <span class="kw">unique</span>(country_data<span class="op">$</span>from))</a>
 <a class="sourceLine" id="cb2-16" data-line-number="16">  })</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">  <span class="kw">observeEvent</span>(input<span class="op">$</span>clear, {</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">  </a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">  <span class="kw">observeEvent</span>(input<span class="op">$</span>selectCountry, {</a>
 <a class="sourceLine" id="cb2-19" data-line-number="19">    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="st">      </span><span class="kw"><a href="../reference/add.html">g_clear_p</a></span>()</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="st">      </span><span class="kw"><a href="../reference/g_switch_p.html">g_switch_p</a></span>(input<span class="op">$</span>selectCountry)</a>
 <a class="sourceLine" id="cb2-21" data-line-number="21">  })</a>
 <a class="sourceLine" id="cb2-22" data-line-number="22"></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">  <span class="kw">observeEvent</span>(input<span class="op">$</span>add, {</a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="st">      </span><span class="kw"><a href="../reference/add.html">g_data_p</a></span>(country_data, from, to, value)</a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">  })</a>
-<a class="sourceLine" id="cb2-27" data-line-number="27">}</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">  output<span class="op">$</span>gior &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gior-shiny.html">renderGior</a></span>({</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">    country_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="st">      </span><span class="kw"><a href="../reference/gior.html">gior</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="st">      </span><span class="kw"><a href="../reference/g_data.html">g_data</a></span>(from, to, value)</a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">  })</a>
 <a class="sourceLine" id="cb2-28" data-line-number="28"></a>
-<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="kw">shinyApp</span>(ui, server)</a></code></pre></div>
+<a class="sourceLine" id="cb2-29" data-line-number="29">  <span class="kw">observeEvent</span>(input<span class="op">$</span>clear, {</a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="st">      </span><span class="kw"><a href="../reference/add.html">g_clear_p</a></span>()</a>
+<a class="sourceLine" id="cb2-32" data-line-number="32">  })</a>
+<a class="sourceLine" id="cb2-33" data-line-number="33"></a>
+<a class="sourceLine" id="cb2-34" data-line-number="34">  <span class="kw">observeEvent</span>(input<span class="op">$</span>add, {</a>
+<a class="sourceLine" id="cb2-35" data-line-number="35">    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="st">      </span><span class="kw"><a href="../reference/add.html">g_data_p</a></span>(country_data, from, to, value)</a>
+<a class="sourceLine" id="cb2-37" data-line-number="37">  })</a>
+<a class="sourceLine" id="cb2-38" data-line-number="38">}</a>
+<a class="sourceLine" id="cb2-39" data-line-number="39"></a>
+<a class="sourceLine" id="cb2-40" data-line-number="40"><span class="kw">shinyApp</span>(ui, server)</a></code></pre></div>
 </div>
   </div>
 

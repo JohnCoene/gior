@@ -1,0 +1,9 @@
+dependencies:
+ - name: three
+   version: 97
+   src: htmlwidgets/lib/three
+   script: three.min.js
+ - name: gio
+   version: 2.0
+   src: htmlwidgets/lib/gio-2.0
+   script: gio.min.js

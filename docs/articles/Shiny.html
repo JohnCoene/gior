@@ -6,10 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shiny • gior</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Shiny">
+<script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Shiny">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -60,7 +61,18 @@
   </a>
 </li>
 <li>
-  <a href="../articles/Shiny.html">Shiny</a>
+  <a href="../articles/get-started.html">
+    <span class="fa fa fa fa-rocket"></span>
+     
+    Get Started
+  </a>
+</li>
+<li>
+  <a href="../articles/Shiny.html">
+    <span class="fa fa fa fa-desktop"></span>
+     
+    Shiny
+  </a>
 </li>
 <li>
   <a href="../reference/">Reference</a>
@@ -88,7 +100,7 @@
       <h1>Shiny</h1>
                         <h4 class="author">John Coene</h4>
             
-            <h4 class="date">2018-10-02</h4>
+            <h4 class="date">2018-10-03</h4>
       
       
       <div class="hidden name"><code>Shiny.Rmd</code></div>
@@ -108,86 +120,86 @@
 <code>_related</code> to get data <strong>related</strong> to the selected country.</li>
 </ul>
 <p>Run the example below to see both of the above demonstrated.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(DT)
-<span class="kw">library</span>(gior)
-<span class="kw">library</span>(shiny)
-
-ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
-  <span class="kw">fluidRow</span>(
-    <span class="kw">column</span>(
-      <span class="dv">10</span>,
-      <span class="kw">h3</span>(<span class="st">"Map"</span>),
-      <span class="kw"><a href="../reference/gior-shiny.html">giorOutput</a></span>(<span class="st">"gior"</span>)
-    ),
-    <span class="kw">column</span>(
-      <span class="dv">2</span>,
-      <span class="kw">h3</span>(<span class="st">"Selected"</span>),
-      <span class="kw">verbatimTextOutput</span>(<span class="st">"sel"</span>)
-    )
-  ),
-  <span class="kw">fluidRow</span>(
-    <span class="kw">column</span>(
-      <span class="dv">12</span>,
-      <span class="kw">h3</span>(<span class="st">"Related countries"</span>),
-      <span class="kw">DTOutput</span>(<span class="st">"rel"</span>)
-    )
-  )
-)
-
-server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session) {
-  <span class="kw">data</span>(<span class="st">"country_data"</span>)
-
-  output<span class="op">$</span>gior &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gior-shiny.html">renderGior</a></span>({
-    country_data <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/gior.html">gior</a></span>() <span class="op">%&gt;%</span>§
-      <span class="kw"><a href="../reference/g_data.html">g_data</a></span>(from, to, value)
-  })
-
-  output<span class="op">$</span>sel &lt;-<span class="st"> </span><span class="kw">renderPrint</span>({
-    input<span class="op">$</span>gior_selected
-  })
-
-  output<span class="op">$</span>rel &lt;-<span class="st"> </span><span class="kw">renderDT</span>({
-    DT<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(input<span class="op">$</span>gior_related)
-  })
-}
-
-<span class="kw">shinyApp</span>(ui, server)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(DT)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(gior)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(shiny)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">  <span class="kw">fluidRow</span>(</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="kw">column</span>(</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">      <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">      <span class="kw">h3</span>(<span class="st">"Map"</span>),</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">      <span class="kw"><a href="../reference/gior-shiny.html">giorOutput</a></span>(<span class="st">"gior"</span>)</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">    ),</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">    <span class="kw">column</span>(</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">      <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">      <span class="kw">h3</span>(<span class="st">"Selected"</span>),</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">      <span class="kw">verbatimTextOutput</span>(<span class="st">"sel"</span>)</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">    )</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">  ),</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">  <span class="kw">fluidRow</span>(</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">    <span class="kw">column</span>(</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">      <span class="dv">12</span>,</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">      <span class="kw">h3</span>(<span class="st">"Related countries"</span>),</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">      <span class="kw">DTOutput</span>(<span class="st">"rel"</span>)</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">    )</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">  )</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">)</a>
+<a class="sourceLine" id="cb1-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb1-27" data-line-number="27">server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session) {</a>
+<a class="sourceLine" id="cb1-28" data-line-number="28">  <span class="kw">data</span>(<span class="st">"country_data"</span>)</a>
+<a class="sourceLine" id="cb1-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb1-30" data-line-number="30">  output<span class="op">$</span>gior &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gior-shiny.html">renderGior</a></span>({</a>
+<a class="sourceLine" id="cb1-31" data-line-number="31">    country_data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-32" data-line-number="32"><span class="st">      </span><span class="kw"><a href="../reference/gior.html">gior</a></span>() <span class="op">%&gt;%</span>§</a>
+<a class="sourceLine" id="cb1-33" data-line-number="33">      <span class="kw"><a href="../reference/g_data.html">g_data</a></span>(from, to, value)</a>
+<a class="sourceLine" id="cb1-34" data-line-number="34">  })</a>
+<a class="sourceLine" id="cb1-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb1-36" data-line-number="36">  output<span class="op">$</span>sel &lt;-<span class="st"> </span><span class="kw">renderPrint</span>({</a>
+<a class="sourceLine" id="cb1-37" data-line-number="37">    input<span class="op">$</span>gior_selected</a>
+<a class="sourceLine" id="cb1-38" data-line-number="38">  })</a>
+<a class="sourceLine" id="cb1-39" data-line-number="39"></a>
+<a class="sourceLine" id="cb1-40" data-line-number="40">  output<span class="op">$</span>rel &lt;-<span class="st"> </span><span class="kw">renderDT</span>({</a>
+<a class="sourceLine" id="cb1-41" data-line-number="41">    DT<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(input<span class="op">$</span>gior_related)</a>
+<a class="sourceLine" id="cb1-42" data-line-number="42">  })</a>
+<a class="sourceLine" id="cb1-43" data-line-number="43">}</a>
+<a class="sourceLine" id="cb1-44" data-line-number="44"></a>
+<a class="sourceLine" id="cb1-45" data-line-number="45"><span class="kw">shinyApp</span>(ui, server)</a></code></pre></div>
 </div>
 <div id="proxies" class="section level2">
 <h2 class="hasAnchor">
 <a href="#proxies" class="anchor"></a>Proxies</h2>
 <p><code>gior</code> comes with numerous proxies. Shiny proxies let you interact with a visualisation without having to redraw it everytime you do so.</p>
 <p>For examples, you can change the dataset on the fly without having to redraw the entire globe.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
-
-<span class="kw">data</span>(<span class="st">"country_data"</span>)
-
-ui &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/fluidPage">fluidPage</a></span>(
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/actionButton">actionButton</a></span>(<span class="st">"add"</span>, <span class="st">"add"</span>),
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/actionButton">actionButton</a></span>(<span class="st">"clear"</span>, <span class="st">"clear"</span>),
-  <span class="kw"><a href="../reference/gior-shiny.html">giorOutput</a></span>(<span class="st">"gior"</span>)
-)
-
-server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session){
-  output<span class="op">$</span>gior &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gior-shiny.html">renderGior</a></span>({
-    data <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/gior.html">gior</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/g_data.html">g_data</a></span>(from, to, value)
-  })
-
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/observeEvent">observeEvent</a></span>(input<span class="op">$</span>clear, {
-    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/add.html">g_clear_p</a></span>()
-  })
-
-  <span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/observeEvent">observeEvent</a></span>(input<span class="op">$</span>add, {
-    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/add.html">g_data_p</a></span>(country_data, from, to, value)
-  })
-}
-
-<span class="kw"><a href="http://www.rdocumentation.org/packages/shiny/topics/shinyApp">shinyApp</a></span>(ui, server)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(shiny)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">data</span>(<span class="st">"country_data"</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="kw">actionButton</span>(<span class="st">"add"</span>, <span class="st">"add"</span>),</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="kw">actionButton</span>(<span class="st">"clear"</span>, <span class="st">"clear"</span>),</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="kw"><a href="../reference/gior-shiny.html">giorOutput</a></span>(<span class="st">"gior"</span>)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">)</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output, session){</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">  output<span class="op">$</span>gior &lt;-<span class="st"> </span><span class="kw"><a href="../reference/gior-shiny.html">renderGior</a></span>({</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">    data <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">      </span><span class="kw"><a href="../reference/gior.html">gior</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">      </span><span class="kw"><a href="../reference/g_data.html">g_data</a></span>(from, to, value)</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">  })</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">  <span class="kw">observeEvent</span>(input<span class="op">$</span>clear, {</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="st">      </span><span class="kw"><a href="../reference/add.html">g_clear_p</a></span>()</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">  })</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">  <span class="kw">observeEvent</span>(input<span class="op">$</span>add, {</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">    <span class="kw"><a href="../reference/gior-shiny.html">giorProxy</a></span>(<span class="st">"gior"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="st">      </span><span class="kw"><a href="../reference/add.html">g_data_p</a></span>(country_data, from, to, value)</a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">  })</a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">}</a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="kw">shinyApp</span>(ui, server)</a></code></pre></div>
 </div>
   </div>
 

@@ -1,0 +1,50 @@
+---
+title: "Get Started"
+author: "John Coene"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(gior)
+```
+
+`gior` provides a very simple, straightforward API; initialise your globe with `gior`, then add select your data with `g_data`. For testing purposes the package comes with sample data.
+
+```{r}
+data("country_data")
+
+knitr::kable(head(country_data)) # sample data
+```
+
+Use [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1) Alpha-2 codes, i.e.: United States of America = US.
+
+```{r}
+country_data %>% # pipe the data
+  gior() %>% # initialise
+  g_data(from, to, value) # select columns
+```
+
+Then simply customise the appearance with:
+
+- `g_color`
+- `g_control`
+- `g_brightness`
+
+Or use one of the 13 built-in styles with `g_style`, see `?g_style` for the full list. Note that you can also change the country initally selected.
+
+```{r}
+country_data %>% 
+  gior(init.country = "CN") %>%
+  g_data(from, to, value) %>% 
+  g_style("sunset")
+```

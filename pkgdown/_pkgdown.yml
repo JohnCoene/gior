@@ -17,7 +17,11 @@ navbar:
       href: LICENSE.html
     - icon: fa-newspaper-o
       href: news/index.html
-    - text: Shiny
+    - icon: fa fa-rocket
+      text: Get Started
+      href: articles/get-started.html
+    - icon: fa fa-desktop
+      text: Shiny
       href: articles/Shiny.html
     - text: "Reference"
       href: "reference/"

@@ -7,6 +7,8 @@
 g_style(g, style)
 }
 \arguments{
+\item{g}{An object of class \code{gior} as returned by \code{\link{gior}}.}
+
 \item{style}{Style, see details.}
 }
 \description{

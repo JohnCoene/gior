@@ -48,7 +48,7 @@ g_control <- function(g, disable.unmentioned = FALSE, lighten.mentioned = FALSE,
   if(missing(g))
     stop("missing g", call. = FALSE)
 
-  g$x$configs$control <- list(
+  cntrl <- list(
     disableUnmentioned = disable.unmentioned,
     lighteMentioned = lighten.mentioned,
     inOnly = in.only,
@@ -56,6 +56,10 @@ g_control <- function(g, disable.unmentioned = FALSE, lighten.mentioned = FALSE,
     initCountry = init.country,
     halo = halo
   )
+
+  cntrl <- .filter_list(cntrl)
+
+  g$x$configs$control <- cntrl
 
   g
 
@@ -69,13 +73,17 @@ g_color <- function(g, surface = NULL, selected = NULL, inn = NULL, out = NULL,
   if(missing(g))
     stop("missing g", call. = FALSE)
 
-  g$x$configs$color <- list(
+  col <- list(
     surface = surface,
     selected = selected,
     `in` = inn,
     out = out,
     background = background
   )
+
+  col <- .filter_list(col)
+
+  g$x$configs$color <- col
 
   g
 
@@ -88,11 +96,15 @@ g_brightness <- function(g, ocean = .5, mentioned = .5, related = .5){
   if(missing(g))
     stop("missing g", call. = FALSE)
 
-  g$x$configs$brightness <- list(
+  bright <- list(
     ocean = ocean,
     mentioned = mentioned,
     related = related
   )
+
+  bright <- .filter_list(bright)
+
+  g$x$configs$brightness <- bright
 
   g
 
@@ -103,6 +115,7 @@ g_brightness <- function(g, ocean = .5, mentioned = .5, related = .5){
 #'
 #' Set globe style.
 #'
+#' @inheritParams g_data
 #' @param style Style, see details.
 #'
 #' @details Valid \code{style} include:

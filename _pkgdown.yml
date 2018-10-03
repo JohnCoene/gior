@@ -2,7 +2,7 @@ url: http://gior.john-coene.com
 
 template:
   params:
-    bootswatch: lumen
+    bootswatch: paper
     ganalytics: UA-74544116-1
 
 development:

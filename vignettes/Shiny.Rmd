@@ -26,7 +26,9 @@ library(gior)
 - `_selected` to get data **related** to the selected country.
 - `_related` to get data **related** to the selected country.
 
-Run the example below to see both of the above demonstrated.
+Run the example below to see both of the above demonstrated or hit the button below to visit the live demo.
+
+<a href = "https://shiny.john-coene.com/gior-shiny/" class = "btn btn-primary">Demo</a>
 
 ```r
 library(DT)

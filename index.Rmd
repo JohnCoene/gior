@@ -26,6 +26,11 @@ div(
         href = "http://giojs.org/",
         target = "_blank"
       )
+    ),
+    tags$a(
+      "Shiny demo",
+      class = "btn btn-default",
+      href = "https://shiny.john-coene.com/gior-shiny/"
     )
   ),
   div(

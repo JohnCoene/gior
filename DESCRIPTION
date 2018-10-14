@@ -3,7 +3,6 @@ Title: A Declarative 3D Globe Data Visualization Library built with 'Three.js'
 Version: 0.0.1
 Authors@R: person("John", "Coene", email = "jcoenep@gmail.com", role = c("aut", "cre"))
 Description: A declarative 3d globe data visualization.
-Depends: R (>= 3.4.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

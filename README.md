@@ -12,6 +12,8 @@ This [htmlwidget](https://www.htmlwidgets.org/) aims at demonstrating
 
 **Read [walkthrough]() to build the widget along!** 
 
+This widget was built for as support for the [How to build an htmlwidget blogpost](), **it works but is incomplete, feel free to read the [blogpost]() and finish it yourself.**
+
 ## Installation
 
 Install from Github.

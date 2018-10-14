@@ -67,6 +67,8 @@ g_data_p <- function(proxy, data, from, to, value, ...){
   if(missing(data) || missing(from) || missing(to) || missing(value))
     stop("missing data, from, to, or value", call. = FALSE)
 
+  row.names(data) <- NULL
+
   e <- dplyr::enquo(from)
   i <- dplyr::enquo(to)
   v <- dplyr::enquo(value)

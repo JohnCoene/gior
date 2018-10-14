@@ -1,6 +1,6 @@
 # gior
 
-An htmlwidget for [gio.js](http://giojs.org/) build for the [Geneva R User Group](https://twitter.com/GenevaRUsers).
+An htmlwidget for [gio.js](http://giojs.org/) build for the [Geneva R User Group](https://twitter.com/GenevaRUsers). *Not a work in progress, rather left unfinished on purpose.* It comes with an accompanying [blog post](http://john-coene.com/blog/how-to-htmlwidgets/) that explains its inner-working which will let you understand how to re-build or finish this package yourself.
 
 ## About
 
@@ -9,10 +9,6 @@ This [htmlwidget](https://www.htmlwidgets.org/) aims at demonstrating
 1. The ease with which one can build an htmlwidget such as [plotly](https://plot.ly/r/) or [leaflet](https://rstudio.github.io/leaflet/).
 2. The surprisingly little knowledge of JavaScript that is required.
 3. Explain some amazing undocumented features of htmlwidgets.
-
-**Read [walkthrough]() to build the widget along!** 
-
-This widget was built for as support for the [How to build an htmlwidget blogpost](), **it works but is incomplete, feel free to read the [blogpost]() and finish it yourself.**
 
 ## Installation
 
